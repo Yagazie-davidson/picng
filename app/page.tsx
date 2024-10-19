@@ -1,19 +1,68 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import {
   motion,
   AnimatePresence,
   LazyMotion,
   domAnimation,
 } from "framer-motion";
-import Navbar from "@/features/root/components/Navbar";
+import { Menu, X } from "lucide-react";
 const page = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
     <div>
       <section className="min-h-screen bg-[url('https://es2.yourwebsite.life/res/66fa67e4ac2477eb40ae9617/66fd12aa36ee6ab12d39f8f9_optimized_1920.webp')] bg-cover bg-center">
-        <Navbar />
+        <nav className="flex justify-between items-center px-4 md:px-24 pt-7 relative">
+          <Image
+            alt="logo"
+            src="https://res2.yourwebsite.life/res/66fa67e4ac2477eb40ae9617/66fa6a747bd271e6ca1a5128_optimized_380.webp"
+            width={180}
+            height={180}
+          />
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="text-white"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+          <div
+            className={`${
+              isMenuOpen ? "flex" : "hidden"
+            } md:flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 absolute md:relative top-full left-0 right-0 bg-black/90 md:bg-transparent p-4 md:p-0`}
+          >
+            <ul className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 text-white text-lg font-normal w-full md:w-auto">
+              <li>
+                <a href="" onClick={() => setIsMenuOpen(false)}>
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="" onClick={() => setIsMenuOpen(false)}>
+                  Objectives
+                </a>
+              </li>
+              <li>
+                <a href="" onClick={() => setIsMenuOpen(false)}>
+                  Pi-CNG
+                </a>
+              </li>
+            </ul>
+            <Button className="md:hidden w-full bg-[#E0DB00] font-normal text-sm hover:bg-[#05AA4E] hover:text-white text-black py-5 px-5">
+              Apply Now
+            </Button>
+          </div>
+          <Button className="hidden md:flex bg-[#E0DB00] font-normal text-sm hover:bg-[#05AA4E] hover:text-white text-black py-5 px-5">
+            Apply Now
+          </Button>
+        </nav>
         <div className="flex justify-center items-center w-full h-[calc(100vh-12rem)]">
           <LazyMotion features={domAnimation}>
             <motion.div
